@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="page-title">SafeGuard - Disaster Prediction & Safe Shelter Navigation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span data-translate="logo">🛡️ SafeGuard</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-translate="nav-home" onclick="showPage('home')">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#predictions" class="nav-link" data-translate="nav-predictions" onclick="showPage('predictions')">Predictions</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#safe-routes" class="nav-link" data-translate="nav-safe-routes" onclick="showPage('safe-routes')">Safe Routes</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#alerts" class="nav-link" data-translate="nav-alerts" onclick="showPage('alerts')">Alerts</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#gamification" class="nav-link" data-translate="nav-game" onclick="showPage('gamification')">Preparedness Quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#donation" class="nav-link" data-translate="nav-donation" onclick="showPage('donation')">Donate</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#prepare-kit" class="nav-link" data-translate="nav-kit" onclick="showPage('prepare-kit')">Emergency Kit</a>
+                </li>
+                <li class="nav-item">
+                    <select class="language-selector" id="language-selector" onchange="changeLanguage(this.value)">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="hi">🇮🇳 हिंदी</option>
+                        <option value="es">🇪🇸 Español</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-translate="hero-title">Stay Safe, Stay Prepared</h1>
+                <p data-translate="hero-description">Get real-time disaster predictions, find safe evacuation routes, and prepare for emergencies with our comprehensive disaster management platform.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showPage('predictions')" data-translate="hero-btn-predictions">Check Predictions</button>
+                    <button class="btn btn-secondary" onclick="showPage('safe-routes')" data-translate="hero-btn-routes">Find Safe Route</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="placeholder-image">🌍</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Predictions Page -->
+    <div id="predictions" class="page">
+        <div class="container">
+            <h1 data-translate="predictions-title">Disaster Predictions</h1>
+            <div class="search-container">
+                <input type="text" id="city-search" placeholder="Enter city or location..." data-translate-placeholder="search-placeholder">
+                <button onclick="searchPredictions()" data-translate="search-btn">Search</button>
+            </div>
+            <div class="predictions-grid" id="predictions-grid">
+                <!-- Predictions will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Safe Routes Page -->
+    <div id="safe-routes" class="page">
+        <div class="container">
+            <h1 data-translate="routes-title">Safe Routes & Shelters</h1>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <p data-translate="map-placeholder">🗺️ Interactive Map Placeholder</p>
+                    <p data-translate="map-description">This would show real-time safe routes and shelter locations</p>
+                </div>
+            </div>
+            <div class="route-controls">
+                <button class="btn btn-primary" onclick="findSafeRoute()" data-translate="find-route-btn">Get Safe Route to Nearest Shelter</button>
+                <div id="route-result" class="route-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Page -->
+    <div id="alerts" class="page">
+        <div class="container">
+            <h1 data-translate="alerts-title">Emergency Alerts</h1>
+            <div class="alerts-container" id="alerts-container">
+                <!-- Alerts will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Gamification Page -->
+    <div id="gamification" class="page">
+        <div class="container">
+            <h1 data-translate="quiz-title">Disaster Preparedness Quiz</h1>
+            <div class="quiz-container">
+                <div id="quiz-question" class="quiz-question">
+                    <h3 id="question-text" data-translate="quiz-q1">What should you do first when you hear a tornado warning?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="selectAnswer(0)" data-translate="quiz-q1-a">Go to the basement or lowest floor</button>
+                        <button class="quiz-option" onclick="selectAnswer(1)" data-translate="quiz-q1-b">Look outside to see the tornado</button>
+                        <button class="quiz-option" onclick="selectAnswer(2)" data-translate="quiz-q1-c">Drive away from the area</button>
+                        <button class="quiz-option" onclick="selectAnswer(3)" data-translate="quiz-q1-d">Open all windows</button>
+                    </div>
+                </div>
+                <div class="quiz-score">
+                    <p data-translate="quiz-score">Score: <span id="score">0</span>/5</p>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn" data-translate="quiz-next" style="display: none;">Next Question</button>
+                    <button class="btn btn-secondary" onclick="restartQuiz()" id="restart-btn" data-translate="quiz-restart" style="display: none;">Restart Quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donation Page -->
+    <div id="donation" class="page">
+        <div class="container">
+            <h1 data-translate="donation-title">Support Disaster Relief</h1>
+            <div class="donation-content">
+                <div class="donation-info">
+                    <h2 data-translate="donation-subtitle">Help Communities in Need</h2>
+                    <p data-translate="donation-description">Your donation helps provide emergency supplies, shelter, and support to communities affected by natural disasters.</p>
+                    <div class="donation-amounts">
+                        <button class="amount-btn" onclick="selectAmount(25)" data-translate="amount-25">$25</button>
+                        <button class="amount-btn" onclick="selectAmount(50)" data-translate="amount-50">$50</button>
+                        <button class="amount-btn" onclick="selectAmount(100)" data-translate="amount-100">$100</button>
+                        <button class="amount-btn" onclick="selectAmount(250)" data-translate="amount-250">$250</button>
+                    </div>
+                </div>
+                <div class="donation-form">
+                    <form id="donation-form">
+                        <input type="number" id="custom-amount" placeholder="Custom amount" data-translate-placeholder="custom-amount-placeholder">
+                        <input type="text" placeholder="Full Name" data-translate-placeholder="name-placeholder" required>
+                        <input type="email" placeholder="Email Address" data-translate-placeholder="email-placeholder" required>
+                        <button type="submit" class="btn btn-primary" data-translate="donate-btn">Donate Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prepare Kit Page -->
+    <div id="prepare-kit" class="page">
+        <div class="container">
+            <h1 data-translate="kit-title">Emergency Preparedness Kit</h1>
+            <div class="kit-checklist">
+                <div class="checklist-category">
+                    <h3 data-translate="kit-basic">Basic Supplies</h3>
+                    <div class="checklist-items" id="basic-supplies">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="checklist-category">
+                    <h3 data-translate="kit-food">Food & Water</h3>
+                    <div class="checklist-items" id="food-water">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="checklist-category">
+                    <h3 data-translate="kit-medical">Medical Supplies</h3>
+                    <div class="checklist-items" id="medical-supplies">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            <div class="kit-progress">
+                <p data-translate="kit-progress">Progress: <span id="progress-text">0/15</span> items checked</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-translate="footer-about">About SafeGuard</h3>
+                <p data-translate="footer-description">Protecting communities through advanced disaster prediction and emergency preparedness.</p>
+            </div>
+            <div class="footer-section">
+                <h3 data-translate="footer-links">Quick Links</h3>
+                <ul>
+                    <li><a href="#home" onclick="showPage('home')" data-translate="nav-home">Home</a></li>
+                    <li><a href="#predictions" onclick="showPage('predictions')" data-translate="nav-predictions">Predictions</a></li>
+                    <li><a href="#alerts" onclick="showPage('alerts')" data-translate="nav-alerts">Alerts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-translate="footer-contact">Contact</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘 Facebook</a>
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                    <a href="#" class="social-link">📧 Email</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-translate="footer-copyright">&copy; 2025 SafeGuard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
